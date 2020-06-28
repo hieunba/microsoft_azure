@@ -33,7 +33,7 @@ def do_protected_file(resource_action)
     mode new_resource.mode
     checksum new_resource.checksum
     backup new_resource.backup
-    if platform_family?('windows')
+    if node['platform_family'].include?('windows')
       inherits new_resource.inherits
       rights new_resource.rights
     end
