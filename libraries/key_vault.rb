@@ -14,6 +14,17 @@ module Azure
       JSON.parse(response)['value']
     end
 
+    def vault_certificate(vault, secret_name, resource = 'certificate', spn = {}, version = nil)
+      request_url = vault_request_url(vault, secret_name, resource, version)
+      token_provider = create_token_provider(spn)
+      headers = {
+        'Authorization' => token_provider.get_authentication_header,
+      }
+      http_client = Chef::HTTP.new(request_url, headers)
+      response = http_client.get(http_client.url, headers)
+      JSON.parse(response)['cer']
+    end
+
     private
 
     def token_audience
