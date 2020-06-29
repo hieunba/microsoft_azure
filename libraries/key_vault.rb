@@ -34,7 +34,7 @@ module Azure
       end
     end
 
-    def vault_request_url(vault, secret_name, version, resource = 'secrets', api_version = '2015-06-01')
+    def vault_request_url(vault, secret_name, resource = 'secrets', version, api_version = '2015-06-01')
       base_url = "https://#{vault}.vault.azure.net/#{resource}/#{secret_name}"
       base_url << "/#{version}" unless version.nil?
       base_url << "?api-version=#{api_version}"
