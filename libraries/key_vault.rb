@@ -14,8 +14,8 @@ module Azure
       JSON.parse(response)['value']
     end
 
-    def vault_certificate(vault, secret_name, spn = {}, version = nil)
-      request_url = vault_request_url(vault, secret_name, resource = 'certificates', version)
+    def vault_certificate(vault, cert_name, spn = {}, version = nil)
+      request_url = vault_request_url(vault, cert_name, resource = 'certificates', version)
       token_provider = create_token_provider(spn)
       headers = {
         'Authorization' => token_provider.get_authentication_header,
