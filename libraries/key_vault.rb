@@ -3,8 +3,8 @@ module Azure
   module KeyVault
     include Azure::Cookbook
 
-    def vault_secret(vault, secret_name, resource = 'secrets', spn = {}, version = nil)
-      request_url = vault_request_url(vault, secret_name, resource, version)
+    def vault_secret(vault, secret_name, spn = {}, version = nil)
+      request_url = vault_request_url(vault, secret_name, resource = 'secrets', version)
       token_provider = create_token_provider(spn)
       headers = {
         'Authorization' => token_provider.get_authentication_header,
@@ -14,8 +14,8 @@ module Azure
       JSON.parse(response)['value']
     end
 
-    def vault_certificate(vault, secret_name, resource = 'certificate', spn = {}, version = nil)
-      request_url = vault_request_url(vault, secret_name, resource, version)
+    def vault_certificate(vault, secret_name, spn = {}, version = nil)
+      request_url = vault_request_url(vault, secret_name, resource = 'certificates', version)
       token_provider = create_token_provider(spn)
       headers = {
         'Authorization' => token_provider.get_authentication_header,
